@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { LoginResponse } from 'src/app/interfaces/responses/auth-responses';
 import { AuthService } from 'src/app/services/auth.service';
 
@@ -15,26 +16,25 @@ export class LoginComponent implements OnInit {
     password: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {}
 
   login(): void {
     this.authService.login(this.loginForm.value).subscribe({
-      next: (response: LoginResponse) => {
-        const token = response?.token ?? '';
-        this.setLocalData(token);
+      next: (res: LoginResponse) => {
         this.resetForm();
+        this.router.navigate(['/dashboard']);
       },
       error: (error: HttpErrorResponse) => {
         const msg = error?.error?.msg ?? 'Error during request';
         alert(msg);
       },
     });
-  }
-
-  private setLocalData(token: string) {
-    localStorage.setItem('token', token);
   }
 
   private resetForm(): void {

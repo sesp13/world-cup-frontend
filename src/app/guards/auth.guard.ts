@@ -9,38 +9,50 @@ import {
   UrlSegment,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
+import { LoginResponse } from '../interfaces/responses/auth-responses';
+import { AuthService } from '../services/auth.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthGuard implements CanActivate, CanLoad {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    const token = localStorage.getItem('token');
-    if (!token) {
-      this.router.navigate(['/auth/login']);
-      return false;
-    }
-
-    return true;
+  ): Observable<boolean> {
+    return this.manageAuth();
   }
-  canLoad(
-    route: Route,
-    segments: UrlSegment[]
-  ):
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return true;
+
+  canLoad(route: Route, segments: UrlSegment[]): Observable<boolean> {
+    return this.manageAuth();
+  }
+
+  private manageAuth(): Observable<boolean> {
+    if (!this.authService.token) {
+      this.redirectToLogin();
+      return of(false);
+    } else {
+      return this.authService.renewSession().pipe(
+        map((response: LoginResponse) => {
+          if (response.token) {
+            return true;
+          } else {
+            this.redirectToLogin();
+            return false;
+          }
+        }),
+        catchError(() => {
+          this.redirectToLogin();
+          return of(false);
+        })
+      );
+    }
+  }
+
+  redirectToLogin(): void {
+    this.router.navigate(['/auth/login']);
   }
 }
