@@ -9,7 +9,7 @@ const routes: Routes = [
     component: AdminDashboardComponent,
   },
   {
-    path: 'manage-group',
+    path: 'create-group',
     component: ManageGroupComponent
   },
   {
