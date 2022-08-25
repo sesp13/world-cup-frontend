@@ -1,6 +1,24 @@
 <h1 class="text-center fw-bold">Admin Dashboard</h1>
-<div class="buttons-panel">
+<section class="buttons-panel">
   <button mat-raised-button color="primary">Add Team</button>
   <button mat-raised-button>Add Group</button>
   <button mat-raised-button color="warn">Add Meta Sticker</button>
-</div>
+</section>
+<section class="groups-dashboard">
+  <h2>Groups - Teams</h2>
+  <div class="row">
+    <div *ngFor="let group of groups" class="col-12 col-sm-6 col-md-4 p-0">
+      <div class="card m-2">
+        <div class="card-header">
+          {{ group.code }}
+        </div>
+        <div class="card-body">
+          <p>
+            {{ group.name }}
+          </p>
+          <button mat-raised-button color="primary">See More</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
