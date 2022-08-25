@@ -1,0 +1,44 @@
+<h2>{{ title }}</h2>
+<form [formGroup]="groupForm" class="row" (ngSubmit)="submitForm()">
+  <div class="col-12 col-lg-4">
+    <mat-form-field class="col-12">
+      <mat-label>Code</mat-label>
+      <input type="text" matInput formControlName="code" />
+      <mat-error> Invalid field </mat-error>
+    </mat-form-field>
+  </div>
+  <div class="col-12 col-lg-4">
+    <mat-form-field class="col-12">
+      <mat-label>Name</mat-label>
+      <input type="text" matInput formControlName="name" />
+    </mat-form-field>
+  </div>
+  <div
+    class="col-lg-2"
+    [matTooltip]="createFullTeamInfo"
+    matTooltipPosition="above"
+  >
+    <div class="form-check pt-2 pb-2">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        id="createfullTeam"
+        formControlName="isFullTeam"
+      />
+      <label class="form-check-label" for="createfullTeam">
+        Create full team
+      </label>
+      <p class="d-lg-none">{{ createFullTeamInfo }}</p>
+    </div>
+  </div>
+  <div class="col-12 col-lg-2">
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      [disabled]="groupForm.invalid"
+    >
+      Save
+    </button>
+  </div>
+</form>
