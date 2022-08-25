@@ -1,4 +1,8 @@
-<section class="p-5">
-  <p class="welcome-text">Welcome to the app!</p>
+<section *ngIf="user?.isAdmin" class="admin-section">
+  <p>Hello admin!</p>
+  <a [routerLink]="['/admin']" mat-raised-button color="warn">Go to the panel</a>
+</section>
+<section class="main-section">
+  <p class="welcome-text">Welcome {{ user?.name }} to the app!</p>
   <app-search-bar></app-search-bar>
 </section>
