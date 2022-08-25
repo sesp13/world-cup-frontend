@@ -1,7 +1,22 @@
-<section *ngIf="user?.isAdmin" class="admin-section">
-  <p>Hello admin!</p>
-  <a [routerLink]="['/admin']" mat-raised-button color="warn">Go to the panel</a>
-</section>
+<div class="row">
+  <section
+    *ngIf="user?.isAdmin"
+    class="admin-section col-9 col-md-10 col-lg-11"
+  >
+    <p>Hello admin!</p>
+    <a [routerLink]="['/admin']" mat-raised-button color="warn">
+      Go to the panel
+    </a>
+  </section>
+  <section
+    class="logout-section"
+    [ngClass]="{
+      'col-3 col-md-2 col-lg-1 with-admin': user?.isAdmin
+    }"
+  >
+    <button mat-raised-button color="primary" (click)="logout()">Logout</button>
+  </section>
+</div>
 <section class="main-section">
   <p class="welcome-text">Welcome {{ user?.name }} to the app!</p>
   <app-search-bar></app-search-bar>

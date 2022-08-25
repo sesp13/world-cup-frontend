@@ -3,11 +3,21 @@
 }
 
 .admin-section {
-  padding: 20px 15px;
+  padding: 20px;
   display: flex;
   justify-content: space-between;
 }
 
 .main-section {
   padding: 30px 15px;
+}
+
+.logout-section{
+  display: flex;
+  justify-content: flex-end;
+  
+  &.with-admin {
+    padding: 20px 0px;
+  }
+
 }

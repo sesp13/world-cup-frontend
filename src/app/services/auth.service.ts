@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginResponse } from '../interfaces/responses/auth-responses';
@@ -24,7 +25,7 @@ export class AuthService {
     }
   }
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(user: IUser): Observable<LoginResponse> {
     const url = `${this.authUrl}/login`;
@@ -42,6 +43,11 @@ export class AuthService {
         return throwError(() => error);
       })
     );
+  }
+
+  logout(): void {
+    this.clearLocalData();
+    this.router.navigate(['/auth/login']);
   }
 
   private setLocalData(response: LoginResponse): void {
