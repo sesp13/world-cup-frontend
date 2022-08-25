@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { catchError, Observable, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { LoginResponse } from '../interfaces/responses/auth-responses';
 import { IUser } from '../interfaces/user.interface';
@@ -35,14 +35,23 @@ export class AuthService {
 
   renewSession(): Observable<LoginResponse> {
     const url = `${this.authUrl}/renew`;
-    return this.http
-      .get(url)
-      .pipe(tap((res: LoginResponse) => this.setLocalData(res)));
+    return this.http.get(url).pipe(
+      tap((res: LoginResponse) => this.setLocalData(res)),
+      catchError((error) => {
+        this.clearLocalData();
+        return throwError(() => error);
+      })
+    );
   }
 
   private setLocalData(response: LoginResponse): void {
     if (response.token) localStorage.setItem('token', response.token);
     if (response.user)
       localStorage.setItem('user', JSON.stringify(response.user));
+  }
+
+  private clearLocalData(): void {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
   }
 }

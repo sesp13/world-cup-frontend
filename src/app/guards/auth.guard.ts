@@ -7,7 +7,6 @@ import {
   Router,
   RouterStateSnapshot,
   UrlSegment,
-  UrlTree,
 } from '@angular/router';
 import { catchError, map, Observable, of } from 'rxjs';
 import { LoginResponse } from '../interfaces/responses/auth-responses';

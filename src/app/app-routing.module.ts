@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './guards/auth.guard';
+import { ExistingSessionGuard } from './guards/existing-session.guard';
 
 const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+    canActivate: [ExistingSessionGuard],
+    canLoad: [ExistingSessionGuard]
   },
   {
     path: 'dashboard',
