@@ -25,7 +25,27 @@
   <app-sticker-grid
     [stickers]="pendingStickers"
     [totalStickers]="totalPendingStickers"
-    (onSeeMore)="seeMoreStickers('pending')"
+    (onSeeMore)="seeMoreStickers('PENDING')"
+  >
+  </app-sticker-grid>
+
+  <hr />
+
+  <h2>Provided stickers</h2>
+  <app-sticker-grid
+    [stickers]="providedStickers"
+    [totalStickers]="totalProvidedStickers"
+    (onSeeMore)="seeMoreStickers('PROVIDED')"
+  >
+  </app-sticker-grid>
+
+  <hr />
+
+  <h2>Repeated stickers</h2>
+  <app-sticker-grid
+    [stickers]="repeatedStickers"
+    [totalStickers]="totalRepeatedStickers"
+    (onSeeMore)="seeMoreStickers('REPEATED')"
   >
   </app-sticker-grid>
 </section>
