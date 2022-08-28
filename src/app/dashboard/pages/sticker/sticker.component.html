@@ -5,18 +5,46 @@
       <hr />
       <p>{{ sticker.metaSticker?.name }}</p>
     </div>
-  <div class="col-sm-6">
-    <h2>Details</h2>
-    <p>Amount: {{ sticker.amount }}</p>
-    Status: {{ sticker.status }}
-  </div>
-</section>
+    <div class="col-sm-6">
+      <h2>Details</h2>
+      <p>Amount: {{ sticker.amount }}</p>
+      Status: {{ sticker.status }}
+    </div>
+  </section>
 
-<div class="row">
-  <h2>Update data</h2>
-  <form></form>
-</div>
-<a [routerLink]="['/dashboard']">Go to dashboard</a>
+  <div class="row mb-3">
+    <h2>Update Sticker</h2>
+    <form [formGroup]="stickerForm">
+      <div class="row">
+        <div class="col-6 col-md-4">
+          <mat-form-field class="col-12">
+            <mat-label>Amount</mat-label>
+            <input type="number" matInput min="0" formControlName="amount" (change)="changeAmountField()" />
+            <mat-error> Invalid field </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-6 col-md-4">
+          <mat-form-field class="col-12">
+            <mat-label>Status</mat-label>
+            <mat-select formControlName="status">
+              <mat-option
+                *ngFor="let status of allowedStatuses"
+                [value]="status"
+              >
+                {{ status }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div class="col-6 col-md-4">
+          <button type="submit" mat-raised-button color="primary">
+            Update
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <a [routerLink]="['/dashboard']">Go to dashboard</a>
 </section>
 
 <ng-template #noSticker>

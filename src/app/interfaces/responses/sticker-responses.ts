@@ -12,3 +12,8 @@ export interface GetStickerByIdResponse {
   msg?: string;
   sticker?: ISticker;
 }
+
+export interface GetAllowedStickerStatusesResponse {
+  msg?: string;
+  statuses?: string[];
+}

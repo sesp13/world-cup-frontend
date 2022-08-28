@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PagingParams } from '../interfaces/paging-params';
 import {
+  GetAllowedStickerStatusesResponse,
   GetStickerByIdResponse,
   GetStickersByUserStatusResponse,
 } from '../interfaces/responses/sticker-responses';
@@ -37,4 +38,10 @@ export class StickerService {
     const url = `${this.stickerUrl}/by-id/${id}`;
     return this.http.get(url);
   }
+  
+  getAllowedStickerStatuses(): Observable<GetAllowedStickerStatusesResponse>{
+    const url = `${this.stickerUrl}/allowed-statuses`;
+    return this.http.get(url);
+  }
+
 }
