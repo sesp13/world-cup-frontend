@@ -1,0 +1,27 @@
+<section class="row">
+  <div class="col-sm-6 col-lg-3" *ngFor="let sticker of stickers">
+    <div class="card m-2">
+      <div class="card-header">
+        {{ sticker.metaSticker?.code }}
+      </div>
+      <div class="card-body">
+        <ul>
+          <li>Name: {{ sticker.metaSticker?.name }}</li>
+          <li>Status: {{ sticker.status }}</li>
+          <li>Amount: {{ sticker.amount }}</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="mt-3 grid-footer">
+    <button
+      *ngIf="stickers.length < totalStickers"
+      mat-raised-button
+      color="warn"
+      (click)="seeMore()"
+    >
+      See More
+    </button>
+    <p>Total Stickers: {{ totalStickers }}</p>
+  </div>
+</section>

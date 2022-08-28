@@ -14,9 +14,10 @@ import { MatInputModule } from '@angular/material/input';
 import { HomeComponent } from './pages/home/home.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { StickerGridComponent } from './components/sticker-grid/sticker-grid.component';
 
 @NgModule({
-  declarations: [HomeComponent, SearchBarComponent],
+  declarations: [HomeComponent, SearchBarComponent, StickerGridComponent],
   imports: [
     MatAutocompleteModule,
     MatButtonModule,

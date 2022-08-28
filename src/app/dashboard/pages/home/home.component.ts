@@ -12,8 +12,11 @@ import { StickerService } from 'src/app/services/sticker.service';
 })
 export class HomeComponent implements OnInit {
   user: IUser | null = this.authService.user;
+
   pendingStickers: ISticker[] = [];
   totalPendingStickers: number = 0;
+  skipPendingStickers: number = 0;
+  limitPendingStickers: number = 10;
 
   constructor(
     private authService: AuthService,
@@ -26,17 +29,38 @@ export class HomeComponent implements OnInit {
 
   getPendingStickers(): void {
     this.stickerService
-      .getStickersByUserStatus('PENDING', { paged: true, skip: 0, limit: 10 })
+      .getStickersByUserStatus('PENDING', {
+        paged: true,
+        skip: this.skipPendingStickers,
+        limit: this.limitPendingStickers,
+      })
       .subscribe({
         next: (response: getStikcersByUserStatusResponse) => {
-          this.pendingStickers = response.stickers ?? [];
+          this.pendingStickers =
+            response.stickers !== undefined
+              ? [...this.pendingStickers, ...response.stickers]
+              : [];
           this.totalPendingStickers = response.totalStickers ?? 0;
         },
         error: (error) => {
           console.log(error);
+          alert('Error on pending stickers');
         },
       });
   }
+
+  seeMoreStickers(type: string): void {
+    switch (type) {
+      case 'pending': {
+        // Update pagination
+        this.skipPendingStickers += this.limitPendingStickers;
+        this.getPendingStickers();
+        break;
+      }
+    }
+  }
+
+
 
   logout(): void {
     this.authService.logout();
