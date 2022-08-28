@@ -1,19 +1,25 @@
-<section class="row">
-  <div class="col-sm-6">
-    <h1>ENG 10</h1>
-    <hr />
-    <p>Harry Kane</p>
-  </div>
+<section *ngIf="sticker; else noSticker">
+  <section class="row">
+    <div class="col-sm-6">
+      <h1>{{ sticker.metaSticker?.code }}</h1>
+      <hr />
+      <p>{{ sticker.metaSticker?.name }}</p>
+    </div>
   <div class="col-sm-6">
     <h2>Details</h2>
-    <p>Amount: 1</p>
-    Status: Provided
+    <p>Amount: {{ sticker.amount }}</p>
+    Status: {{ sticker.status }}
   </div>
 </section>
 
 <div class="row">
   <h2>Update data</h2>
-  <form>
-    
-  </form>
+  <form></form>
 </div>
+<a [routerLink]="['/dashboard']">Go to dashboard</a>
+</section>
+
+<ng-template #noSticker>
+  <p>Sorry this sticker doesn't exists</p>
+  <a [routerLink]="['/dashboard']">Go to dashboard</a>
+</ng-template>

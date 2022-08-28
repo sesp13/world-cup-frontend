@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { getStikcersByUserStatusResponse } from 'src/app/interfaces/responses/sticker-responses';
+import { GetStickersByUserStatusResponse } from 'src/app/interfaces/responses/sticker-responses';
 import { ISticker } from 'src/app/interfaces/sticker';
 import { IUser } from 'src/app/interfaces/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
@@ -35,7 +35,7 @@ export class HomeComponent implements OnInit {
         limit: this.limitPendingStickers,
       })
       .subscribe({
-        next: (response: getStikcersByUserStatusResponse) => {
+        next: (response: GetStickersByUserStatusResponse) => {
           this.pendingStickers =
             response.stickers !== undefined
               ? [...this.pendingStickers, ...response.stickers]

@@ -3,7 +3,10 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PagingParams } from '../interfaces/paging-params';
-import { getStikcersByUserStatusResponse } from '../interfaces/responses/sticker-responses';
+import {
+  GetStickerByIdResponse,
+  GetStickersByUserStatusResponse,
+} from '../interfaces/responses/sticker-responses';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +19,7 @@ export class StickerService {
   getStickersByUserStatus(
     status: string,
     pagingParams?: PagingParams
-  ): Observable<getStikcersByUserStatusResponse> {
+  ): Observable<GetStickersByUserStatusResponse> {
     const url = `${this.stickerUrl}/by-user-status/${status}`;
     if (pagingParams) {
       const params = new HttpParams().appendAll({
@@ -28,5 +31,10 @@ export class StickerService {
     } else {
       return this.http.get(url);
     }
+  }
+
+  getStickerById(id: string): Observable<GetStickerByIdResponse> {
+    const url = `${this.stickerUrl}/by-id/${id}`;
+    return this.http.get(url);
   }
 }
