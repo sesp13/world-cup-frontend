@@ -10,6 +10,9 @@
           <li>Status: {{ sticker.status }}</li>
           <li>Amount: {{ sticker.amount }}</li>
         </ul>
+        <a [routerLink]="['sticker', sticker._id]">
+          <button mat-raised-button color="primary">See details</button>
+        </a>
       </div>
     </div>
   </div>
