@@ -13,27 +13,32 @@ import { StickerService } from 'src/app/services/sticker.service';
 export class HomeComponent implements OnInit {
   user: IUser | null = this.authService.user;
   pendingStickers: ISticker[] = [];
+  totalPendingStickers: number = 0;
 
-  constructor(private authService: AuthService, private stickerService: StickerService) {}
+  constructor(
+    private authService: AuthService,
+    private stickerService: StickerService
+  ) {}
 
   ngOnInit(): void {
     this.getPendingStickers();
   }
 
   getPendingStickers(): void {
-    this.stickerService.getStickersByUserStatus('PENDING').subscribe({
-      next: (response: getStikcersByUserStatusResponse) => {
-        this.pendingStickers = response.stickers ?? [];
-      },  
-      error: (error) => {
-        console.log(error);
-      }
-    })
+    this.stickerService
+      .getStickersByUserStatus('PENDING', { paged: true, skip: 0, limit: 10 })
+      .subscribe({
+        next: (response: getStikcersByUserStatusResponse) => {
+          this.pendingStickers = response.stickers ?? [];
+          this.totalPendingStickers = response.totalStickers ?? 0;
+        },
+        error: (error) => {
+          console.log(error);
+        },
+      });
   }
 
   logout(): void {
     this.authService.logout();
   }
-
-
 }
