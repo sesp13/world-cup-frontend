@@ -7,7 +7,9 @@ import {
   GetAllowedStickerStatusesResponse,
   GetStickerByIdResponse,
   GetStickersByUserStatusResponse,
+  UpdateStickerResponse,
 } from '../interfaces/responses/sticker-responses';
+import { ISticker } from '../interfaces/sticker';
 
 @Injectable({
   providedIn: 'root',
@@ -38,10 +40,13 @@ export class StickerService {
     const url = `${this.stickerUrl}/by-id/${id}`;
     return this.http.get(url);
   }
-  
-  getAllowedStickerStatuses(): Observable<GetAllowedStickerStatusesResponse>{
+
+  getAllowedStickerStatuses(): Observable<GetAllowedStickerStatusesResponse> {
     const url = `${this.stickerUrl}/allowed-statuses`;
     return this.http.get(url);
   }
 
+  updateSticker(sticker: ISticker): Observable<UpdateStickerResponse> {
+    return this.http.put(this.stickerUrl, sticker);
+  }
 }

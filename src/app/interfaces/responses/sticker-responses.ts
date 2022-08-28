@@ -17,3 +17,8 @@ export interface GetAllowedStickerStatusesResponse {
   msg?: string;
   statuses?: string[];
 }
+
+export interface UpdateStickerResponse {
+  msg?: string;
+  sticker?: ISticker;
+}

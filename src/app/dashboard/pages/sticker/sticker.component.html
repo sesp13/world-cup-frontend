@@ -1,7 +1,8 @@
 <section *ngIf="sticker; else noSticker">
+  <h1>Manage Sticker</h1>
   <section class="row">
     <div class="col-sm-6">
-      <h1>{{ sticker.metaSticker?.code }}</h1>
+      <h2>{{ sticker.metaSticker?.code }}</h2>
       <hr />
       <p>{{ sticker.metaSticker?.name }}</p>
     </div>
@@ -14,16 +15,22 @@
 
   <div class="row mb-3">
     <h2>Update Sticker</h2>
-    <form [formGroup]="stickerForm">
+    <form [formGroup]="stickerForm" (ngSubmit)="updateSticker()">
       <div class="row">
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-lg-3">
           <mat-form-field class="col-12">
             <mat-label>Amount</mat-label>
-            <input type="number" matInput min="0" formControlName="amount" (change)="changeAmountField()" />
+            <input
+              type="number"
+              matInput
+              min="0"
+              formControlName="amount"
+              (change)="changeAmountField()"
+            />
             <mat-error> Invalid field </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-6 col-md-4">
+        <div class="col-6 col-lg-3">
           <mat-form-field class="col-12">
             <mat-label>Status</mat-label>
             <mat-select formControlName="status">
@@ -36,10 +43,29 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-6 col-md-4">
-          <button type="submit" mat-raised-button color="primary">
-            Update
+        <div class="col-12 col-lg-6">
+          <button
+            class="btn btn-danger me-1"
+            type="button"
+            (click)="quickUpdate('PENDING')"
+          >
+            Set as pending
           </button>
+          <button
+            class="btn btn-success me-1"
+            type="button"
+            (click)="quickUpdate('PROVIDED')"
+          >
+            Set as provided
+          </button>
+          <button
+            class="btn btn-secondary me-1"
+            type="button"
+            (click)="quickUpdate('ADD-1')"
+          >
+            Add 1 item
+          </button>
+          <button type="submit" class="btn btn-primary">Update</button>
         </div>
       </div>
     </form>
