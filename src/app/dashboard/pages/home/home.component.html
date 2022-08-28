@@ -20,4 +20,22 @@
 <section class="main-section">
   <p class="welcome-text">Welcome {{ user?.name }} to the app!</p>
   <app-search-bar></app-search-bar>
+
+  <h2>Pending stickers</h2>
+  <section class="row">
+    <div class="col-sm-6 col-md-4 col-lg-3" *ngFor="let sticker of pendingStickers">
+      <div class="card m-2">
+        <div class="card-header">
+          {{ sticker.metaSticker?.code }}
+        </div>
+        <div class="card-body">
+          <ul>
+            <li>Name: {{ sticker.metaSticker?.name }}</li>
+            <li>Status: {{ sticker.status }}</li>
+            <li>Amount: {{ sticker.amount }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
 </section>
