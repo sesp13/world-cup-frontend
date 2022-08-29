@@ -7,6 +7,7 @@ import {
   GetAllowedStickerStatusesResponse,
   GetStickerByIdResponse,
   GetStickersByUserStatusResponse,
+  SearchStickersResponse,
   UpdateStickerResponse,
 } from '../interfaces/responses/sticker-responses';
 import { ISticker } from '../interfaces/sticker';
@@ -48,5 +49,13 @@ export class StickerService {
 
   updateSticker(sticker: ISticker): Observable<UpdateStickerResponse> {
     return this.http.put(this.stickerUrl, sticker);
+  }
+
+  searchStickers(
+    term: string,
+    model: ISticker
+  ): Observable<SearchStickersResponse> {
+    const url = `${this.stickerUrl}/search/${term}`;
+    return this.http.post(url, model);
   }
 }

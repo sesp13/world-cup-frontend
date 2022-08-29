@@ -19,7 +19,11 @@
 </div>
 <section class="main-section">
   <p class="welcome-text">Welcome {{ user?.name }} to the app!</p>
-  <app-search-bar></app-search-bar>
+  <app-search-bar
+    [options]="searchOptions"
+    (onSearch)="search($event)"
+    (onOptionSelected)="searchOptionSelected($event)"
+  ></app-search-bar>
 
   <h2>Pending stickers</h2>
   <app-sticker-grid

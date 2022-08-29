@@ -22,3 +22,9 @@ export interface UpdateStickerResponse {
   msg?: string;
   sticker?: ISticker;
 }
+
+export interface SearchStickersResponse {
+  msg?: string;
+  stickers?: ISticker[];
+  total?: number;
+}

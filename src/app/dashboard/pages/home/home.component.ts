@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PagingParams } from 'src/app/interfaces/paging-params';
 import { GetStickersByUserStatusResponse } from 'src/app/interfaces/responses/sticker-responses';
+import { ISearchBarOption } from 'src/app/interfaces/search-bar-option.inteface';
 import { ISticker } from 'src/app/interfaces/sticker';
 import { IUser } from 'src/app/interfaces/user.interface';
 import { AuthService } from 'src/app/services/auth.service';
@@ -13,6 +15,8 @@ import { StickerService } from 'src/app/services/sticker.service';
 })
 export class HomeComponent implements OnInit {
   user: IUser | null = this.authService.user;
+
+  searchOptions: ISearchBarOption[] = [];
 
   pendingStickers: ISticker[] = [];
   totalPendingStickers: number = 0;
@@ -31,7 +35,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private stickerService: StickerService
+    private stickerService: StickerService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -55,7 +60,7 @@ export class HomeComponent implements OnInit {
             break;
           case 'PROVIDED':
             this.providedStickers = [...this.providedStickers, ...newStickers];
-            this.totalProvidedStickers = totalStickers
+            this.totalProvidedStickers = totalStickers;
             break;
           case 'REPEATED':
             this.repeatedStickers = [...this.repeatedStickers, ...newStickers];
@@ -115,5 +120,24 @@ export class HomeComponent implements OnInit {
 
   logout(): void {
     this.authService.logout();
+  }
+
+  search(term: string) {
+    this.stickerService.searchStickers(term, {}).subscribe({
+      next: (res) => {
+        if (res.stickers) {
+          this.searchOptions = res.stickers.map((sticker: ISticker) => {
+            return {
+              code: sticker._id ?? '',
+              name: `${sticker.metaSticker?.code} ${sticker.metaSticker?.name}`,
+            };
+          });
+        }
+      },
+    });
+  }
+
+  searchOptionSelected(value: ISearchBarOption) {
+    this.router.navigate(['/dashboard/sticker', value.code]);
   }
 }
