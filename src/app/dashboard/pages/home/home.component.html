@@ -20,12 +20,19 @@
 <section class="main-section">
   <p class="welcome-text">Welcome {{ user?.name }} to the app!</p>
   <app-search-bar
-    [options]="searchOptions"
-    (onSearch)="search($event)"
+    label="Search a sticker"
+    [options]="globalSearchOptions"
+    (onSearch)="search($event, 'ALL')"
     (onOptionSelected)="searchOptionSelected($event)"
   ></app-search-bar>
 
   <h2>Pending stickers</h2>
+  <app-search-bar
+    label="Search a pending sticker"
+    [options]="searchPendingOptions"
+    (onSearch)="search($event, 'PENDING')"
+    (onOptionSelected)="searchOptionSelected($event)"
+  ></app-search-bar>
   <app-sticker-grid
     [stickers]="pendingStickers"
     [totalStickers]="totalPendingStickers"
@@ -36,6 +43,12 @@
   <hr />
 
   <h2>Provided stickers</h2>
+  <app-search-bar
+    label="Search a provided sticker"
+    [options]="searchProvidedOptions"
+    (onSearch)="search($event, 'PROVIDED')"
+    (onOptionSelected)="searchOptionSelected($event)"
+  ></app-search-bar>
   <app-sticker-grid
     [stickers]="providedStickers"
     [totalStickers]="totalProvidedStickers"
@@ -46,6 +59,12 @@
   <hr />
 
   <h2>Repeated stickers</h2>
+  <app-search-bar
+    label="Search a repeated sticker"
+    [options]="searchRepeatedOptions"
+    (onSearch)="search($event, 'REPEATED')"
+    (onOptionSelected)="searchOptionSelected($event)"
+  ></app-search-bar>
   <app-sticker-grid
     [stickers]="repeatedStickers"
     [totalStickers]="totalRepeatedStickers"
