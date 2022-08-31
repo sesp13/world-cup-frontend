@@ -1,4 +1,4 @@
-<section class="row">
+<section class="row" *ngIf="stickers.length > 0; else noStickers">
   <div class="col-sm-6 col-lg-3" *ngFor="let sticker of stickers">
     <div class="card m-2">
       <div class="card-header">
@@ -28,3 +28,8 @@
     <p>Total Stickers: {{ totalStickers }}</p>
   </div>
 </section>
+
+<ng-template #noStickers>
+  <p>No stickers found!</p>
+  <p>Total Stickers: {{ totalStickers }}</p>
+</ng-template>

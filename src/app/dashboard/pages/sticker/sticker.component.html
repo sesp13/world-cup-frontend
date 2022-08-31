@@ -17,7 +17,7 @@
     <h2>Update Sticker</h2>
     <form [formGroup]="stickerForm" (ngSubmit)="updateSticker()">
       <div class="row">
-        <div class="col-6 col-lg-3">
+        <div class="col-6">
           <mat-form-field class="col-12">
             <mat-label>Amount</mat-label>
             <input
@@ -30,7 +30,7 @@
             <mat-error> Invalid field </mat-error>
           </mat-form-field>
         </div>
-        <div class="col-6 col-lg-3">
+        <div class="col-6">
           <mat-form-field class="col-12">
             <mat-label>Status</mat-label>
             <mat-select formControlName="status">
@@ -43,9 +43,23 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col-12 col-lg-6">
+        <div class="col-12">
           <button
             class="btn btn-danger me-1 mb-1"
+            type="button"
+            (click)="quickUpdate('SUB-1')"
+          >
+            Substract 1 item (-)
+          </button>
+          <button
+            class="btn btn-success me-1 mb-1"
+            type="button"
+            (click)="quickUpdate('ADD-1')"
+          >
+            Add 1 item (+)
+          </button>
+          <button
+            class="btn btn-primary me-1 mb-1"
             type="button"
             (click)="quickUpdate('PENDING')"
           >
@@ -58,14 +72,7 @@
           >
             Set as provided
           </button>
-          <button
-            class="btn btn-secondary me-1 mb-1"
-            type="button"
-            (click)="quickUpdate('ADD-1')"
-          >
-            Add 1 item
-          </button>
-          <button type="submit" class="btn btn-primary mb-1">Update</button>
+          <button type="submit" class="btn btn-secondary mb-1">Update</button>
         </div>
       </div>
     </form>

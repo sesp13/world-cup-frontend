@@ -1,9 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
@@ -85,6 +81,10 @@ export class StickerComponent implements OnInit, OnDestroy {
 
   changeAmountField(): void {
     const amount = this.amountControl?.value;
+    if (amount < 0) {
+      this.amountControl?.setValue(0);
+      this.statusControl?.setValue('PENDING');
+    }
     if (amount == 0) {
       this.statusControl?.setValue('PENDING');
     } else if (amount == 1) {
@@ -111,6 +111,13 @@ export class StickerComponent implements OnInit, OnDestroy {
       case 'ADD-1': {
         const amount = this.sticker?.amount ?? 0;
         this.amountControl?.setValue(amount + 1);
+        this.changeAmountField();
+        this.updateSticker();
+        break;
+      }
+      case 'SUB-1': {
+        const amount = this.sticker?.amount ?? 0;
+        this.amountControl?.setValue(amount - 1);
         this.changeAmountField();
         this.updateSticker();
         break;
