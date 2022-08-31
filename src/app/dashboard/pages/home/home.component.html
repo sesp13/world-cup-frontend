@@ -19,6 +19,21 @@
 </div>
 <section class="main-section">
   <p class="welcome-text">Welcome {{ user?.name }} to the app!</p>
+  <hr />
+  <h4 class="text-center">Main stats:</h4>
+  <div class="d-flex justify-content-between">
+    <p>
+      <span class="fw-bold">Pending stickers:</span> {{ totalPendingStickers }}
+    </p>
+    <p>
+      <span class="fw-bold">Provided stickers: </span>
+      {{ totalProvidedStickers + totalRepeatedStickers }}
+    </p>
+    <p>
+      <span class="fw-bold">Repeated stickers:</span>
+      {{ totalRepeatedStickers }}
+    </p>
+  </div>
   <app-search-bar
     label="Search a sticker"
     [options]="globalSearchOptions"
