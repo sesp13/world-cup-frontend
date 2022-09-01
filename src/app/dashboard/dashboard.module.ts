@@ -17,6 +17,7 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { ReactiveFormsModule } from '@angular/forms';
 import { StickerGridComponent } from './components/sticker-grid/sticker-grid.component';
 import { StickerComponent } from './pages/sticker/sticker.component';
+import { BulkUpdateStickersComponent } from './pages/bulk-update-stickers/bulk-update-stickers.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { StickerComponent } from './pages/sticker/sticker.component';
     SearchBarComponent,
     StickerGridComponent,
     StickerComponent,
+    BulkUpdateStickersComponent,
   ],
   imports: [
     MatAutocompleteModule,
