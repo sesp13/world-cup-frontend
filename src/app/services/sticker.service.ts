@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { PagingParams } from '../interfaces/paging-params';
+import { MessageResponse } from '../interfaces/responses/standard-responses';
 import {
   GetAllowedStickerStatusesResponse,
   GetStickerByIdResponse,
@@ -36,7 +37,7 @@ export class StickerService {
     } else {
       return this.http.get(url);
     }
-  } 
+  }
 
   // The user is passed through the token
   getUserStickers(): Observable<GetStickersByUserResponse> {
@@ -64,5 +65,10 @@ export class StickerService {
   ): Observable<SearchStickersResponse> {
     const url = `${this.stickerUrl}/search/${term}`;
     return this.http.post(url, model);
+  }
+
+  addManyStickers(stickerIds: string[]): Observable<MessageResponse> {
+    const url = `${this.stickerUrl}/add-many`;
+    return this.http.put(url, { stickerIds });
   }
 }

@@ -1,8 +1,11 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
 import { map, Subscription } from 'rxjs';
+import { MessageResponse } from 'src/app/interfaces/responses/standard-responses';
 import { GetStickersByUserResponse } from 'src/app/interfaces/responses/sticker-responses';
 import { ISearchBarOption } from 'src/app/interfaces/search-bar-option.inteface';
 import { StickerService } from 'src/app/services/sticker.service';
@@ -31,7 +34,6 @@ export class BulkUpdateStickersComponent implements OnInit {
     textField: 'name',
     selectAllText: 'Select All',
     unSelectAllText: 'UnSelect All',
-    itemsShowLimit: 3,
     allowSearchFilter: true,
     enableCheckAll: false,
   };
@@ -59,7 +61,7 @@ export class BulkUpdateStickersComponent implements OnInit {
           break;
         }
         default: {
-          this.router.navigate(['/dashboard']);
+          this.navigateToDashboard();
           break;
         }
       }
@@ -86,9 +88,28 @@ export class BulkUpdateStickersComponent implements OnInit {
 
   submitForm(): void {
     const { ids } = this.updateForm.value;
-    const parsedIds = ids?.map((item: ISearchBarOption) => item.code);
-    if(this.type ==  "ADD"){
-      console.log(parsedIds);
+    const parsedIds: string[] = ids?.map((item: ISearchBarOption) => item.code);
+    if (this.type == 'ADD') {
+      this.addManyStickers(parsedIds);
     }
+  }
+
+  addManyStickers(ids: string[]): void {
+    this.stickerService.addManyStickers(ids).subscribe({
+      next: () => {
+        const message = 'Success! stickers updated';
+        alert(message);
+        this.updateForm.reset();
+        this.navigateToDashboard();
+      },
+      error: (error: HttpErrorResponse) => {
+        const message = error.error.msg ?? 'Error on add stickers';
+        alert(message);
+      },
+    });
+  }
+
+  navigateToDashboard(): void {
+    this.router.navigate(['/dashboard']);
   }
 }
