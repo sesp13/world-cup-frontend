@@ -6,6 +6,7 @@ import { PagingParams } from '../interfaces/paging-params';
 import {
   GetAllowedStickerStatusesResponse,
   GetStickerByIdResponse,
+  GetStickersByUserResponse,
   GetStickersByUserStatusResponse,
   SearchStickersResponse,
   UpdateStickerResponse,
@@ -35,6 +36,12 @@ export class StickerService {
     } else {
       return this.http.get(url);
     }
+  } 
+
+  // The user is passed through the token
+  getUserStickers(): Observable<GetStickersByUserResponse> {
+    const url = `${this.stickerUrl}/by-user/`;
+    return this.http.get(url);
   }
 
   getStickerById(id: string): Observable<GetStickerByIdResponse> {

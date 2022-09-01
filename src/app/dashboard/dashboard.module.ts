@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 // Modules
 import { DashboardRoutingModule } from './dashboard-routing.module';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 // Material
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
@@ -36,6 +37,7 @@ import { BulkUpdateStickersComponent } from './pages/bulk-update-stickers/bulk-u
     CommonModule,
     ReactiveFormsModule,
     DashboardRoutingModule,
+    NgMultiSelectDropDownModule.forRoot(),
   ],
 })
 export class DashboardModule {}

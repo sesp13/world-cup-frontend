@@ -28,3 +28,8 @@ export interface SearchStickersResponse {
   stickers?: ISticker[];
   total?: number;
 }
+
+export interface GetStickersByUserResponse {
+  msg?: string;
+  stickers?: ISticker[];
+}
