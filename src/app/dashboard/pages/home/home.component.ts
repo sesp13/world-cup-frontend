@@ -24,7 +24,7 @@ export class HomeComponent implements OnInit {
   pendingStickers: ISticker[] = [];
   totalPendingStickers: number = 0;
   skipPendingStickers: number = 0;
-  limitPendingStickers: number = 10;
+  limitPendingStickers: number = 4;
 
   providedStickers: ISticker[] = [];
   totalProvidedStickers: number = 0;
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
   repeatedStickers: ISticker[] = [];
   totalRepeatedStickers: number = 0;
   skipRepeatedStickers: number = 0;
-  limitRepeatedStickers: number = 6;
+  limitRepeatedStickers: number = 4;
 
   constructor(
     private authService: AuthService,
