@@ -19,6 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { StickerGridComponent } from './components/sticker-grid/sticker-grid.component';
 import { StickerComponent } from './pages/sticker/sticker.component';
 import { BulkUpdateStickersComponent } from './pages/bulk-update-stickers/bulk-update-stickers.component';
+import { StickerSearchBarComponent } from './components/sticker-search-bar/sticker-search-bar.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { BulkUpdateStickersComponent } from './pages/bulk-update-stickers/bulk-u
     StickerGridComponent,
     StickerComponent,
     BulkUpdateStickersComponent,
+    StickerSearchBarComponent,
   ],
   imports: [
     MatAutocompleteModule,

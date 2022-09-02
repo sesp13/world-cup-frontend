@@ -16,11 +16,6 @@ import { StickerService } from 'src/app/services/sticker.service';
 export class HomeComponent implements OnInit {
   user: IUser | null = this.authService.user;
 
-  globalSearchOptions: ISearchBarOption[] = [];
-  searchPendingOptions: ISearchBarOption[] = [];
-  searchProvidedOptions: ISearchBarOption[] = [];
-  searchRepeatedOptions: ISearchBarOption[] = [];
-
   pendingStickers: ISticker[] = [];
   totalPendingStickers: number = 0;
   skipPendingStickers: number = 0;
@@ -125,53 +120,4 @@ export class HomeComponent implements OnInit {
     this.authService.logout();
   }
 
-  search(term: string, type: string) {
-    const model: ISticker = this.generateSearchFilter(type);
-    this.stickerService.searchStickers(term, model).subscribe({
-      next: (response) => {
-        if (response.stickers) {
-          const newOptions = this.parseSearchOptions(response.stickers);
-          switch (type) {
-            case 'ALL':
-              this.globalSearchOptions = newOptions;
-              break;
-            case 'PENDING':
-              this.searchPendingOptions = newOptions;
-              break;
-            case 'PROVIDED':
-              this.searchProvidedOptions = newOptions;
-              break;
-            case 'REPEATED':
-              this.searchRepeatedOptions = newOptions;
-              break;
-          }
-        }
-      },
-    });
-  }
-
-  generateSearchFilter(type: string): ISticker {
-    const model: ISticker = {};
-    switch (type) {
-      case 'PENDING':
-      case 'PROVIDED':
-      case 'REPEATED':
-        model.status = type;
-        break;
-    }
-    return model;
-  }
-
-  parseSearchOptions(stickers: ISticker[]) {
-    return stickers.map((sticker: ISticker) => {
-      return {
-        code: sticker._id ?? '',
-        name: `${sticker.metaSticker?.code} ${sticker.metaSticker?.name}`,
-      };
-    });
-  }
-
-  searchOptionSelected(value: ISearchBarOption) {
-    this.router.navigate(['/dashboard/sticker', value.code]);
-  }
 }
