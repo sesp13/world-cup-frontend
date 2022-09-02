@@ -114,7 +114,7 @@ export class HomeComponent implements OnInit {
         break;
       }
       case 'REPEATED': {
-        this.skipProvidedStickers += this.limitProvidedStickers;
+        this.skipRepeatedStickers += this.limitRepeatedStickers;
         this.getStickers('REPEATED');
         break;
       }
