@@ -67,8 +67,11 @@ export class StickerService {
     return this.http.post(url, model);
   }
 
-  addManyStickers(stickerIds: string[]): Observable<MessageResponse> {
-    const url = `${this.stickerUrl}/add-many`;
-    return this.http.put(url, { stickerIds });
+  bulkUpdateStickersAmount(
+    stickerIds: string[],
+    type: string
+  ): Observable<MessageResponse> {
+    const url = `${this.stickerUrl}/bulk-update-amount`;
+    return this.http.put(url, { stickerIds, type });
   }
 }

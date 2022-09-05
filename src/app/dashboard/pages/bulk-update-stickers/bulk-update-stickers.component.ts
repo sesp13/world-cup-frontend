@@ -20,6 +20,7 @@ export class BulkUpdateStickersComponent implements OnInit {
   title: string = ``;
   formLabel: string = ``;
   sendButtonLabel: string = ``;
+  sendButtonClass: string = ``;
   type?: 'ADD' | 'SUB';
 
   updateForm: FormGroup = this.fb.group({
@@ -58,6 +59,15 @@ export class BulkUpdateStickersComponent implements OnInit {
           this.title = `Add many stickers`;
           this.formLabel = `Select the stickers to add`;
           this.sendButtonLabel = `Add`;
+          this.sendButtonClass = `btn btn-success`;
+          break;
+        }
+        case 'sub': {
+          this.type = 'SUB';
+          this.title = `Substract many stickers`;
+          this.formLabel = `Select the stickers to substract`;
+          this.sendButtonLabel = `Substract`;
+          this.sendButtonClass = `btn btn-danger`;
           break;
         }
         default: {
@@ -89,13 +99,11 @@ export class BulkUpdateStickersComponent implements OnInit {
   submitForm(): void {
     const { ids } = this.updateForm.value;
     const parsedIds: string[] = ids?.map((item: ISearchBarOption) => item.code);
-    if (this.type == 'ADD') {
-      this.addManyStickers(parsedIds);
-    }
+    this.bulkUpdateAmount(parsedIds);
   }
 
-  addManyStickers(ids: string[]): void {
-    this.stickerService.addManyStickers(ids).subscribe({
+  bulkUpdateAmount(ids: string[]): void {
+    this.stickerService.bulkUpdateStickersAmount(ids, this.type!).subscribe({
       next: () => {
         const message = 'Success! stickers updated';
         alert(message);
@@ -103,7 +111,7 @@ export class BulkUpdateStickersComponent implements OnInit {
         this.navigateToDashboard();
       },
       error: (error: HttpErrorResponse) => {
-        const message = error.error.msg ?? 'Error on add stickers';
+        const message = error.error.msg ?? 'Error on bulk update stickers amount';
         alert(message);
       },
     });
